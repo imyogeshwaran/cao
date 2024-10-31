@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Arithmetic Methods</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #eef2f7;
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s;
+        }
+
+        .container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.2em;
+            color: #444;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e3e7ec;
+            border-radius: 8px;
+            background-color: #f9fcff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            background-color: #f5f8fb;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Binary Arithmetic Methods</h1>
+
+        <!-- Signed Magnitude Addition Section -->
+        <div class="form-group">
+            <h2>Signed Magnitude Addition</h2>
+            <label for="add_num1">Enter First Number:</label>
+            <input type="number" id="add_num1" required>
+
+            <label for="add_num2">Enter Second Number:</label>
+            <input type="number" id="add_num2" required>
+
+            <button onclick="calculate('add')">Calculate Addition</button>
+            <div id="add_result" class="result">Result: </div>
+        </div>
+
+        <!-- Signed Magnitude Subtraction Section -->
+        <div class="form-group">
+            <h2>Signed Magnitude Subtraction</h2>
+            <label for="sub_num1">Enter First Number:</label>
+            <input type="number" id="sub_num1" required>
+
+            <label for="sub_num2">Enter Second Number:</label>
+            <input type="number" id="sub_num2" required>
+
+            <button onclick="calculate('subtract')">Calculate Subtraction</button>
+            <div id="sub_result" class="result">Result: </div>
+        </div>
+
+        <!-- Binary Multiplication Section -->
+        <div class="form-group">
+            <h2>Binary Multiplication</h2>
+            <label for="mul_num1">Enter First Number:</label>
+            <input type="number" id="mul_num1" required>
+
+            <label for="mul_num2">Enter Second Number:</label>
+            <input type="number" id="mul_num2" required>
+
+            <button onclick="calculate('multiply')">Calculate Multiplication</button>
+            <div id="mul_result" class="result">Result: </div>
+        </div>
+
+        <!-- Booth Multiplication Section -->
+        <div class="form-group">
+            <h2>Booth Multiplication</h2>
+            <label for="booth_num1">Enter First Number:</label>
+            <input type="number" id="booth_num1" required>
+
+            <label for="booth_num2">Enter Second Number:</label>
+            <input type="number" id="booth_num2" required>
+
+            <button onclick="calculate('booth')">Calculate Booth Multiplication</button>
+            <div id="booth_result" class="result">Result: </div>
+        </div>
+
+        <!-- Binary Division (Restoring Method) Section -->
+        <div class="form-group">
+            <h2>Binary Division (Restoring Method)</h2>
+            <label for="div_num1">Enter Dividend:</label>
+            <input type="number" id="div_num1" required>
+
+            <label for="div_num2">Enter Divisor:</label>
+            <input type="number" id="div_num2" required>
+
+            <button onclick="calculate('divide')">Calculate Division</button>
+            <div id="div_result" class="result">Result: </div>
+        </div>
+    </div>
+
+    <script>
+        function calculate(operation) {
+            let num1, num2, resultElement;
+
+            if (operation === 'add') {
+                num1 = document.getElementById('add_num1').value;
+                num2 = document.getElementById('add_num2').value;
+                resultElement = document.getElementById('add_result');
+            } else if (operation === 'subtract') {
+                num1 = document.getElementById('sub_num1').value;
+                num2 = document.getElementById('sub_num2').value;
+                resultElement = document.getElementById('sub_result');
+            } else if (operation === 'multiply') {
+                num1 = document.getElementById('mul_num1').value;
+                num2 = document.getElementById('mul_num2').value;
+                resultElement = document.getElementById('mul_result');
+            } else if (operation === 'booth') {
+                num1 = document.getElementById('booth_num1').value;
+                num2 = document.getElementById('booth_num2').value;
+                resultElement = document.getElementById('booth_result');
+            } else if (operation === 'divide') {
+                num1 = document.getElementById('div_num1').value;
+                num2 = document.getElementById('div_num2').value;
+                resultElement = document.getElementById('div_result');
+            }
+
+            fetch(`/${operation}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ num1: parseInt(num1), num2: parseInt(num2) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultElement.textContent = `Result: ${data.result}`;
+            })
+            .catch(error => {
+                resultElement.textContent = 'Error calculating';
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
